@@ -48,4 +48,4 @@ for s in result["삼줄요약"] + result["제목후보"]:
     assert verify_numbers(s, data), f"검증 실패: {s}"
 assert find_unverified_numbers("거래액은 201,500억 원으로 12.3% 증가하였다.", data) == ["201,500", "12.3"]
 assert verify_numbers("생활용품은 3.5% 감소하였다.", {"품목별지표": [{"전월대비증감률": -3.5}]}), "음수 절댓값 미등록"
-print("Ch04 OK — 구조 검증 통과 (실제 API 호출은 프롬프트 D)")
+print("Ch04 OK — 구조 검증 통과 (실제 API 호출은 python api_ch04.py)")

@@ -1,35 +1,54 @@
 # 2차시 — 텍스트 정제·표준화·구조화
 
-## 1. 프롬프트 (`prompts/`)
+> 강의에서는 `prompts/`의 프롬프트로 Claude Code가 코드를 만드는 과정을 **시연**합니다(생성된 코드는 참고용).
+> 실습은 강사가 미리 만든 **`code/`의 코드**로 진행합니다. 명령은 모두 **명령 프롬프트(cmd)** 에서 실행합니다.
 
-Claude Code에 **그대로 붙여넣어** 코드를 직접 만들어 봅니다. 위에서부터 순서대로 씁니다.
+## 1. 실습 순서
+
+처음 한 번 하는 준비(실습 자료 내려받기·실습 폴더·가상환경·패키지 설치)는 [저장소 첫 화면의 README](../README.md#실습-준비-처음-한-번)를 따릅니다. 그다음:
+
+```bat
+cd /d C:\dev\quick-practice
+.venv\Scripts\activate
+set PYTHONUTF8=1
+set LAB=C:\dev\ai-press-lab
+xcopy %LAB%\data data\ /E /I /Y /Q
+copy /Y %LAB%\ch02\결과_CLAUDE.md CLAUDE.md
+```
+
+**① (시연) 프롬프트로 코드 만들기** — `claude`로 Claude Code를 시작하고 `prompts/`의 프롬프트를 차례로 붙여넣습니다. 만들어진 코드는 읽어 보고 다음 단계에서 강사 코드로 덮어씁니다.
+
+**② 강사 코드로 실습하기** — 강사 코드를 복사해 실행하고, 기준 검증으로 확인합니다.
+
+```bat
+xcopy %LAB%\ch02\code . /E /Y /Q
+python run_ch02.py
+python obs_ch02.py
+copy /Y %LAB%\ch02\check\check.py check.py
+python check.py
+```
+
+마지막 줄에 `Ch02 OK`가 나오면 통과입니다([check/기대결과.txt](check/기대결과.txt)와 비교).
+
+## 2. 프롬프트 (`prompts/`)
+
+강의에서 시연하는 프롬프트입니다. 집에서 직접 Claude Code로 만들어 보고 싶다면 위에서부터 차례로 붙여넣으세요.
 
 | 파일 | 하는 일 |
 | --- | --- |
 | [프롬프트A.txt](prompts/프롬프트A.txt) | 모듈 만들기 (mywork/) |
-| [프롬프트B.txt](prompts/프롬프트B.txt) | 실행 스크립트 만들기 (run_chNN.py) |
-| [프롬프트C.txt](prompts/프롬프트C.txt) | 관찰 실험 스크립트 만들기 (obs_chNN.py) |
-| [수정요청예시.txt](prompts/수정요청예시.txt) | 결과가 기대와 다를 때 오류 메시지를 붙여 수정 요청 |
+| [프롬프트B.txt](prompts/프롬프트B.txt) | 실행 스크립트 만들기 (run_ch02.py) |
+| [프롬프트C.txt](prompts/프롬프트C.txt) | 관찰 실험 스크립트 만들기 (obs_ch02.py) |
+| [수정요청예시.txt](prompts/수정요청예시.txt) | 직접 만든 코드가 기준 검증에서 실패했을 때 오류 메시지를 붙여 수정 요청 |
 
-## 2. 기준 검증 (`check/`)
+## 3. 기준 검증 (`check/`)
 
-프롬프트로 만든 코드가 강의 내용대로 동작하는지 정답과 대조합니다. **검증 코드는 Claude Code에게 만들게 하거나 고치게 하지 않습니다**(코드와 테스트를 같은 AI가 만들면 서로 맞춰 버릴 수 있음).
+코드가 강의 내용대로 동작하는지 정답과 대조합니다. 실제 API는 부르지 않습니다(비용 0, API 키 불필요).
+검증 코드는 Claude Code에게 만들게 하거나 고치게 하지 않습니다(코드와 테스트를 같은 AI가 만들면 서로 맞춰 버릴 수 있음).
 
-1. [check/check.py](check/check.py)를 실습 폴더 **바로 아래**에 `check.py`로 저장합니다(`mywork` 안이 아님).
-2. 프롬프트 B로 만든 실행 스크립트를 먼저 실행한 뒤, `python check.py`를 실행합니다.
-3. 마지막 줄에 `Ch02 OK`가 나오면 통과입니다. 출력은 [check/기대결과.txt](check/기대결과.txt)와 비교합니다.
-4. `AssertionError`가 나오면 그 메시지를 [prompts/수정요청예시.txt](prompts/수정요청예시.txt)처럼 붙여 Claude Code에 수정을 요청합니다.
+## 4. 강사 코드 (`code/`)
 
-> 검증은 가짜 응답을 쓰므로 실제 API를 부르지 않습니다(비용 0, API 키 불필요).
-
-## 3. CLAUDE.md
-
-- [결과_CLAUDE.md](결과_CLAUDE.md) — 2차시에 **새로 만드는** CLAUDE.md 전체입니다(기본 규칙 + 공통 블록 + 2차시 블록).
-  실습 폴더 바로 아래에 `CLAUDE.md` 라는 이름으로 저장한 뒤 Claude Code를 시작합니다.
-
-## 4. 강사 코드 (`code/`) — 정답 코드
-
-강사가 위 프롬프트로 만든 코드입니다. **2차시를 마친 시점의 프로젝트 상태** 그대로이므로, 직접 만든 코드가 동작하지 않을 때 내려받아 실습 폴더에 덮어쓰거나, 다음 차시를 이 상태에서 시작할 수 있습니다.
+**2차시를 마친 시점의 실습 폴더 상태** 그대로입니다. 실습 폴더(`C:\dev\quick-practice`)에 덮어써서 씁니다.
 
 | 파일 | 설명 |
 | --- | --- |
@@ -37,16 +56,7 @@ Claude Code에 **그대로 붙여넣어** 코드를 직접 만들어 봅니다. 
 | `mywork/clean.py` | **2차시에 만들거나 고친 파일** |
 | `mywork/config.py` | **2차시에 만들거나 고친 파일** |
 | `mywork/press_data.json` | 2차시를 마친 시점의 표준 데이터 |
-| `obs_ch02.py` | 프롬프트로 만든 스크립트 — 실습 폴더 바로 아래에 둡니다 |
-| `run_ch02.py` | 프롬프트로 만든 스크립트 — 실습 폴더 바로 아래에 둡니다 |
+| `obs_ch02.py` | 관찰 실험 — 실습 폴더 바로 아래에 둡니다 |
+| `run_ch02.py` | 실행 스크립트 — 실습 폴더 바로 아래에 둡니다 |
 
-**쓰는 법** (실습 폴더에서, 가상환경을 켠 상태)
-
-```powershell
-# 내려받은 ch02\code 폴더의 내용을 실습 폴더로 복사 (경로는 내려받은 위치로 바꾸세요)
-Copy-Item <내려받은 위치>\ch02\code\* . -Recurse -Force
-python obs_ch02.py
-python run_ch02.py
-```
-
-> 생성형 AI가 만든 코드는 실행할 때마다 조금씩 다를 수 있습니다. 내 코드가 강사 코드와 모양이 달라도, 같은 입력에 같은 결과를 내면 됩니다.
+- [결과_CLAUDE.md](결과_CLAUDE.md) — 이 차시에 쓰는 CLAUDE.md 전체(프로젝트 규칙). 실습 폴더에 `CLAUDE.md`로 복사합니다.

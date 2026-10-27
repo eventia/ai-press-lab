@@ -48,4 +48,4 @@ for 항목 in ["제목", "부제", "리드문"]:
     ok = verify_numbers(hs[항목], data)
     print(f"{항목} 수치 검증:", "통과" if ok else "재검토 필요")
     assert ok
-print("Ch07 OK — 입력·헤드라인 구조 검증 통과 (실제 API 호출은 프롬프트 D)")
+print("Ch07 OK — 입력·헤드라인 구조 검증 통과 (실제 API 호출은 python api_ch07.py)")

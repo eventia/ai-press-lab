@@ -4,7 +4,7 @@ sys.path.insert(0, ".")
 from mywork.config import DATA_DICTIONARY, REQUIRED_FIELDS, INDICATOR_UNITS
 from mywork.clean import mask_sensitive_info, standardize_date, clean_text, clean_and_structure
 
-assert os.path.exists("run_ch02.py"), "run_ch02.py가 없음 — 프롬프트 B를 먼저 실행"
+assert os.path.exists("run_ch02.py"), "run_ch02.py가 없음 — 강사 코드(code 폴더)를 먼저 복사"
 
 # ① 강의 슬라이드 21의 '정제 전 → 정제 후'를 그대로 재현
 before = "2026년  1월 온라인쇼핑   거래액은   201,250억원으로   전월대비  1.5%   증가하였음.(주:잠정치)"

@@ -1,35 +1,60 @@
 # 4차시 — LLM 기반 텍스트 요약
 
-## 1. 프롬프트 (`prompts/`)
+> 강의에서는 `prompts/`의 프롬프트로 Claude Code가 코드를 만드는 과정을 **시연**합니다(생성된 코드는 참고용).
+> 실습은 강사가 미리 만든 **`code/`의 코드**로 진행합니다. 명령은 모두 **명령 프롬프트(cmd)** 에서 실행합니다.
 
-Claude Code에 **그대로 붙여넣어** 코드를 직접 만들어 봅니다. 위에서부터 순서대로 씁니다.
+## 1. 실습 순서
+
+**① 실습 폴더 맞추기** — 앞 차시를 마친 상태로 맞추고, 이번 차시의 CLAUDE.md를 넣습니다(앞 차시를 건너뛰었어도 이것만 하면 됩니다).
+
+```bat
+cd /d C:\dev\quick-practice
+.venv\Scripts\activate
+set PYTHONUTF8=1
+set LAB=C:\dev\ai-press-lab
+xcopy %LAB%\data data\ /E /I /Y /Q
+xcopy %LAB%\ch03\code . /E /Y /Q
+copy /Y %LAB%\ch04\결과_CLAUDE.md CLAUDE.md
+```
+
+**② (시연) 프롬프트로 코드 만들기** — `claude`로 Claude Code를 시작하고 `prompts/`의 프롬프트를 차례로 붙여넣습니다. 만들어진 코드는 읽어 보고 다음 단계에서 강사 코드로 덮어씁니다.
+
+**③ 강사 코드로 실습하기** — 강사 코드를 복사해 실행하고, 기준 검증으로 확인합니다.
+
+```bat
+xcopy %LAB%\ch04\code . /E /Y /Q
+python obs_ch04.py
+copy /Y %LAB%\ch04\check\check.py check.py
+python check.py
+```
+
+마지막 줄에 `Ch04 OK`가 나오면 통과입니다([check/기대결과.txt](check/기대결과.txt)와 비교).
+
+**④ 실제 API 호출** (`.env`에 `ANTHROPIC_API_KEY`가 있을 때, 비용 발생)
+
+```bat
+python api_ch04.py
+```
+
+## 2. 프롬프트 (`prompts/`)
+
+강의에서 시연하는 프롬프트입니다. 집에서 직접 Claude Code로 만들어 보고 싶다면 위에서부터 차례로 붙여넣으세요.
 
 | 파일 | 하는 일 |
 | --- | --- |
 | [프롬프트A.txt](prompts/프롬프트A.txt) | 모듈 만들기 (mywork/) |
-| [프롬프트C.txt](prompts/프롬프트C.txt) | 관찰 실험 스크립트 만들기 (obs_chNN.py) |
-| [프롬프트D.txt](prompts/프롬프트D.txt) | 실제 API 호출 스크립트 만들기 (api_chNN.py, API 키 필요) |
-| [수정요청예시.txt](prompts/수정요청예시.txt) | 결과가 기대와 다를 때 오류 메시지를 붙여 수정 요청 |
+| [프롬프트C.txt](prompts/프롬프트C.txt) | 관찰 실험 스크립트 만들기 (obs_ch04.py) |
+| [프롬프트D.txt](prompts/프롬프트D.txt) | 실제 API 호출 스크립트 만들기 (api_ch04.py) |
+| [수정요청예시.txt](prompts/수정요청예시.txt) | 직접 만든 코드가 기준 검증에서 실패했을 때 오류 메시지를 붙여 수정 요청 |
 
-## 2. 기준 검증 (`check/`)
+## 3. 기준 검증 (`check/`)
 
-프롬프트로 만든 코드가 강의 내용대로 동작하는지 정답과 대조합니다. **검증 코드는 Claude Code에게 만들게 하거나 고치게 하지 않습니다**(코드와 테스트를 같은 AI가 만들면 서로 맞춰 버릴 수 있음).
+코드가 강의 내용대로 동작하는지 정답과 대조합니다. 실제 API는 부르지 않습니다(비용 0, API 키 불필요).
+검증 코드는 Claude Code에게 만들게 하거나 고치게 하지 않습니다(코드와 테스트를 같은 AI가 만들면 서로 맞춰 버릴 수 있음).
 
-1. [check/check.py](check/check.py)를 실습 폴더 **바로 아래**에 `check.py`로 저장합니다(`mywork` 안이 아님).
-2. `python check.py`를 실행합니다.
-3. 마지막 줄에 `Ch04 OK`가 나오면 통과입니다. 출력은 [check/기대결과.txt](check/기대결과.txt)와 비교합니다.
-4. `AssertionError`가 나오면 그 메시지를 [prompts/수정요청예시.txt](prompts/수정요청예시.txt)처럼 붙여 Claude Code에 수정을 요청합니다.
+## 4. 강사 코드 (`code/`)
 
-> 검증은 가짜 응답을 쓰므로 실제 API를 부르지 않습니다(비용 0, API 키 불필요).
-
-## 3. CLAUDE.md
-
-- [CLAUDE_ch04블록.md](CLAUDE_ch04블록.md) — 이번 차시 규칙. 실습 폴더의 `CLAUDE.md` **맨 아래에 이어 붙인 뒤** Claude Code를 새로 시작합니다.
-- [결과_CLAUDE.md](결과_CLAUDE.md) — 4차시를 마쳤을 때의 CLAUDE.md 전체(비교·복구용).
-
-## 4. 강사 코드 (`code/`) — 정답 코드
-
-강사가 위 프롬프트로 만든 코드입니다. **4차시를 마친 시점의 프로젝트 상태** 그대로이므로, 직접 만든 코드가 동작하지 않을 때 내려받아 실습 폴더에 덮어쓰거나, 다음 차시를 이 상태에서 시작할 수 있습니다.
+**4차시를 마친 시점의 실습 폴더 상태** 그대로입니다. 실습 폴더(`C:\dev\quick-practice`)에 덮어써서 씁니다.
 
 | 파일 | 설명 |
 | --- | --- |
@@ -40,17 +65,7 @@ Claude Code에 **그대로 붙여넣어** 코드를 직접 만들어 봅니다. 
 | `mywork/press_data.json` | 4차시를 마친 시점의 표준 데이터 |
 | `mywork/review.py` | **4차시에 만들거나 고친 파일** |
 | `mywork/write.py` | **4차시에 만들거나 고친 파일** |
-| `api_ch04.py` | 프롬프트로 만든 스크립트 — 실습 폴더 바로 아래에 둡니다 |
-| `obs_ch04.py` | 프롬프트로 만든 스크립트 — 실습 폴더 바로 아래에 둡니다 |
+| `api_ch04.py` | 실제 API 호출(API 키 필요) — 실습 폴더 바로 아래에 둡니다 |
+| `obs_ch04.py` | 관찰 실험 — 실습 폴더 바로 아래에 둡니다 |
 
-**쓰는 법** (실습 폴더에서, 가상환경을 켠 상태)
-
-```powershell
-# 내려받은 ch04\code 폴더의 내용을 실습 폴더로 복사 (경로는 내려받은 위치로 바꾸세요)
-Copy-Item <내려받은 위치>\ch04\code\* . -Recurse -Force
-python obs_ch04.py
-```
-
-> 실제 API를 부르는 코드는 실습 폴더의 `.env`에 `ANTHROPIC_API_KEY`가 있어야 합니다(저장소 루트의 `.env.example` 참고).
-
-> 생성형 AI가 만든 코드는 실행할 때마다 조금씩 다를 수 있습니다. 내 코드가 강사 코드와 모양이 달라도, 같은 입력에 같은 결과를 내면 됩니다.
+- [결과_CLAUDE.md](결과_CLAUDE.md) — 이 차시에 쓰는 CLAUDE.md 전체(프로젝트 규칙). 실습 폴더에 `CLAUDE.md`로 복사합니다.

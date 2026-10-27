@@ -47,4 +47,4 @@ assert "계산지표" in 받은[1]["messages"][0]["content"] and "통계해석�
 실패 = review_press_release(최종본, data)
 print("감수 파싱 실패 시:", 실패)
 assert 실패[0]["유형"] == "감수 응답 파싱 실패"
-print("Ch09 OK — 문체 통일·3단계 검수 구조 검증 통과 (실제 API 호출은 프롬프트 D)")
+print("Ch09 OK — 문체 통일·3단계 검수 구조 검증 통과 (실제 API 호출은 python api_ch09.py)")

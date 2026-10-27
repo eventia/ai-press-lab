@@ -4,7 +4,7 @@ import pandas as pd
 sys.path.insert(0, ".")
 from mywork.charts import generate_chart_description, generate_table_description
 
-assert os.path.exists("run_ch06.py"), "run_ch06.py가 없음 — 프롬프트 B를 먼저 실행"
+assert os.path.exists("run_ch06.py"), "run_ch06.py가 없음 — 강사 코드(code 폴더)를 먼저 복사"
 with open("mywork/press_data.json", encoding="utf-8") as f:
     data = json.load(f)
 items = pd.DataFrame(data["품목별지표"])

@@ -4,7 +4,7 @@ sys.path.insert(0, ".")
 from mywork.stats import (calc_category_indicators, detect_special_points, build_interpretation_sentences,
                           derive_history_indicators, check_percent_unit)
 
-assert os.path.exists("run_ch05.py"), "run_ch05.py가 없음 — 프롬프트 B를 먼저 실행"
+assert os.path.exists("run_ch05.py"), "run_ch05.py가 없음 — 강사 코드(code 폴더)를 먼저 복사"
 with open("data/raw_202601.json", encoding="utf-8") as f:
     raw = json.load(f)
 with open("mywork/press_data.json", encoding="utf-8") as f:

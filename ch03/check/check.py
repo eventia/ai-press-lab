@@ -4,7 +4,7 @@ sys.path.insert(0, ".")
 from mywork.nlp import (extract_nouns, split_sentences, extract_keywords_tfidf,
                         extract_main_sentences, analyze_document)
 
-assert os.path.exists("run_ch03.py"), "run_ch03.py가 없음 — 프롬프트 B를 먼저 실행"
+assert os.path.exists("run_ch03.py"), "run_ch03.py가 없음 — 강사 코드(code 폴더)를 먼저 복사"
 
 # ① 슬라이드 8의 예시를 그대로 재현 ("온라인쇼핑"이 쪼개지지 않아야 함)
 nouns = extract_nouns("온라인쇼핑 거래액은 전월 대비 1.5% 증가하였다.")

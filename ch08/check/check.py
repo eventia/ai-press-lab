@@ -34,4 +34,4 @@ assert 본문[0]["내용"].startswith("품목별로는") and 본문[1]["내용"]
 assert 전체.count("\n\n") == 1
 for p in 본문:
     assert verify_numbers(p["내용"], data), p["내용"]
-print("Ch08 OK — 본문 구조 검증 통과 (실제 API 호출은 프롬프트 D)")
+print("Ch08 OK — 본문 구조 검증 통과 (실제 API 호출은 python api_ch08.py)")

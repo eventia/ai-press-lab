@@ -1,0 +1,13 @@
+[목적] 실제 Claude API로 3줄 요약·제목 후보를 만드는 스크립트 api_ch04.py 를 프로젝트 폴더에 만들어줘. (실행은 내가 직접 한다)
+
+[입력] mywork/press_data.json, mywork/write.py 의 generate_summary·MODEL_NAME, mywork/review.py 의 find_unverified_numbers
+
+[출력] 모델 이름, 그리고 요약 3문장과 제목 후보 3개를 한 줄씩 "근거 없는 숫자" 목록과 함께 출력한다.
+       근거 없는 숫자가 하나도 없을 때만 결과를 press_data.json 의 "요약결과"에 저장한다.
+
+[★ 반드시 지킬 것]
+- API 호출은 generate_summary 한 번만 한다(반복 호출·재시도 금지 — 비용).
+- 근거 없는 숫자가 하나라도 있으면 저장하지 않고 그 숫자를 알려 준 뒤 멈춘다.
+- API 키를 화면에 출력하지 않는다.
+
+[끝나면] 만든 코드를 설명만 하고 실행하지는 마.

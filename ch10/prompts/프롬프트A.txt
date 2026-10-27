@@ -1,0 +1,32 @@
+[목적] 10차시 코드를 만들어줘. 2~9차시에 만든 함수를 하나의 파이프라인 mywork/main.py 로 연결해, 엑셀 파일 하나로
+       검수까지 끝난 보도자료 초안(txt·hwpx·pdf)을 만든다. 그 전에 mywork/clean.py 에 보안 함수 2개를 추가한다.
+       먼저 mywork/ 의 모듈들과 각 함수 이름, mywork/export.py(제공 파일)의 save_hwpx·save_pdf 사용법을 확인해줘.
+
+[입력] data/온라인쇼핑동향_2026_01.xlsx(필수), data/온라인쇼핑동향_2026_01.pdf(선택, 원문만 대체)
+
+[출력] 아래 이름은 그대로 써줘(검증 코드가 이 이름을 쓴다).
+[mywork/clean.py 에 추가 — 기존 함수는 고치지 말 것]
+- check_data_grade(data) — 문서정보의 보안등급(없으면 "미확인")이 "공개"가 아니면
+  PermissionError("보안등급이 '…'인 자료는 외부 AI API로 보낼 수 없습니다. (공개 자료만 허용)")
+- mask_personal_info(data) — data["원문"]에 mask_sensitive_info 를 적용하고 data를 돌려준다.
+[mywork/main.py]
+- save_final_document(data) — output/{제목}_{문서상태}.txt 에 제목·부제·빈 줄·최종본을 저장하고 경로를 돌려준다(제목의 윈도우 금지 문자는 "_").
+- main(파일경로, pdf경로=None) — 아래 순서로 실행하고 data(dict)를 돌려준다.
+  입력(load_input) → 정제(clean_and_structure) → 보안등급 확인 → 개인정보 마스킹 → NLP(analyze_document)
+  → 계산(add_calculated_indicators) → 그래프(build_visual_descriptions) → 요약결과(참고용 저장만)·헤드라인·본문
+  → 최종본(unify_style(assemble_full_text)) → 검수결과 {"표기오류검사", "수치교차검증", "AI감수지적사항"}
+  → 문서상태 → 출력파일 {"txt", "hwpx", "pdf"} → mywork/press_data.json 저장
+  표기·수치 검수는 "제목 + 부제 + 최종본" 전체에, AI 감수는 최종본에 한다.
+- if __name__ == "__main__": 인자가 있으면 첫째 = 엑셀 경로, 둘째 = pdf 경로(없으면 "data/온라인쇼핑동향_2026_01.xlsx").
+  최종 보도자료(제목·부제·최종본), 수치 교차 검증 통과 여부, 표기 오류 검사, 문서상태, 저장된 파일을 출력한다.
+
+[★ 반드시 지킬 것]
+- 보안등급 확인과 개인정보 마스킹은 외부 AI를 부르기 **전에** 한다.
+- 그래프는 품목별지표 **또는** 월별이력이 있으면 만든다(or).
+- 자동 검수(수치 교차 검증 통과 + 표기 오류 없음)를 통과하면 문서상태 "승인대기", 아니면 "검토필요".
+- mywork 함수는 "from mywork.xxx import 함수" 형태로 가져온다(검증이 가짜 함수로 바꿔 끼울 수 있도록).
+- 로그는 logs/pipeline.log 에 encoding="utf-8"로 시작·완료(메시지에 "파이프라인 완료")·오류를 남기고, 오류는 다시 raise 한다.
+- hwpx·pdf 저장은 형식마다 따로 try로 감싸 한쪽 실패가 다른 쪽을 막지 않게 한다(실패는 logging.warning). export.py 는 고치지 않는다.
+
+[끝나면] python -c "import mywork.main" 으로 import만 확인하고(main은 실행하지 마 — API 비용),
+         ★ 조건 여섯 가지를 코드 어디서 처리했는지 짚어줘.

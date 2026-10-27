@@ -1,0 +1,12 @@
+[목적] 실제 Claude API로 제목·부제·리드문을 만드는 스크립트 api_ch07.py 를 프로젝트 폴더에 만들어줘. (실행은 내가 직접 한다)
+
+[입력] mywork/press_data.json, mywork/write.py 의 generate_headline_set, mywork/review.py 의 find_unverified_numbers
+
+[출력] 제목·부제·리드문을 하나씩 출력하고, 항목마다 근거 없는 숫자 목록을 출력한다.
+       세 항목 모두 근거 없는 숫자가 없을 때만 결과를 press_data.json 의 "헤드라인"에 저장한다.
+
+[★ 반드시 지킬 것]
+- API 호출은 generate_headline_set 한 번만 한다(반복 호출·재시도 금지 — 비용).
+- 제목·부제·리드문 **모두** 검증한다(리드문만 검증하지 않는다). 하나라도 걸리면 저장하지 않고 멈춘다.
+
+[끝나면] 만든 코드를 설명만 하고 실행하지는 마.

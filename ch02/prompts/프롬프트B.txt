@@ -1,0 +1,14 @@
+[목적] 프롬프트 A로 만든 clean.py 로 원본 자료를 표준 데이터로 바꿔 저장하는 실행 스크립트 run_ch02.py 를 만들어줘.
+       위치는 프로젝트 폴더 바로 아래(mywork 밖)다.
+
+[입력] data/raw_202601.json
+
+[출력] clean_and_structure 결과를 mywork/press_data.json 에 저장한다(UTF-8, ensure_ascii=False, indent=2).
+       화면에는 정제 전 원문과 정제 후 원문의 앞부분, 문서정보, 계산지표, 품목별지표·월별이력 개수를 차례로 출력한다.
+
+[★ 반드시 지킬 것]
+- 원본 파일 data/raw_202601.json 은 읽기만 하고 절대 다시 쓰지 않는다.
+- 여러 번 실행해도 결과가 같아야 한다.
+- clean.py 는 고치지 않는다.
+
+[끝나면] python run_ch02.py 로 실행해 결과를 보여줘.

@@ -1,0 +1,14 @@
+[목적] 프롬프트 A로 만든 charts.py 로 그래프를 그리고 시각자료설명을 표준 데이터에 저장하는 실행 스크립트 run_ch06.py 를 만들어줘.
+       위치는 프로젝트 폴더 바로 아래(mywork 밖)다.
+
+[입력] mywork/press_data.json
+
+[출력] build_visual_descriptions 결과를 press_data.json 의 "시각자료설명"에 저장한다(UTF-8, ensure_ascii=False, indent=2).
+       화면에는 항목마다 소주제·그래프유형·이미지경로(파일이 실제로 있는지 포함)·설명문을 출력한다.
+
+[★ 반드시 지킬 것]
+- 시각자료설명 외의 기존 필드는 바꾸지 않는다.
+- 여러 번 실행해도 결과가 같아야 한다(시각자료설명은 덮어쓴다).
+- charts.py 는 고치지 않는다.
+
+[끝나면] python run_ch06.py 로 실행해 결과를 보여줘.

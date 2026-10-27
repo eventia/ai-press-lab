@@ -1,0 +1,12 @@
+[목적] 실제 Claude API로 본문 단락을 만드는 스크립트 api_ch08.py 를 프로젝트 폴더에 만들어줘. (실행은 내가 직접 한다)
+
+[입력] mywork/press_data.json, mywork/write.py 의 generate_body_paragraphs, mywork/review.py 의 find_unverified_numbers
+
+[출력] 단락마다 [소주제] 내용과 근거 없는 숫자 목록을 출력한다.
+       모든 단락에 근거 없는 숫자가 없을 때만 결과를 press_data.json 의 "본문"에 저장한다.
+
+[★ 반드시 지킬 것]
+- generate_body_paragraphs 는 한 번만 부른다(소주제 수만큼 3회 호출됨. 반복 호출·재시도 금지 — 비용).
+- 단락 하나라도 근거 없는 숫자가 있으면 저장하지 않고 그 숫자를 알려 준 뒤 멈춘다.
+
+[끝나면] 만든 코드를 설명만 하고 실행하지는 마.
